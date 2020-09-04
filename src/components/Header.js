@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { removeUser } from '../actions/user';
+import { logout } from '../actions/auth';
+import PropTypes from 'prop-types';
+import Spinnet from './layout/Spinnet';
 
-const Header = (props) => {
-    //Equal ComponentDidMount
-    // useEffect(() => {
-
-    // }, []);
+const Header = ({ auth: { isAuthenticated, loading, user }}) => {
     return (
         <div
             className="container-fluid"
@@ -18,13 +16,12 @@ const Header = (props) => {
                         <h1 style={{ fontSize: "4rem", paddingTop: "50px" }}>
                             <Link to="/">Mobile Store</Link>
                         </h1>
-                        <span className="lead">subtitle</span>
                     </div>
 
                     <div className="col text-right">
                         <div style={{ marginTop: "60px" }}>
                             {
-                                props.user.name === '' ? <Link className="btn btn-success" to="/login"
+                                !isAuthenticated ? <Link className="btn btn-success" to="/login"
                                 >Login</Link> :
                                     <div>
                                         <label className="mr-3">Hello, {props.user.name}</label>
@@ -47,9 +44,13 @@ const Header = (props) => {
     );
 }
 
+Header.propTypes = {
+    auth: PropTypes.object.isRequired
+};
+
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        auth: state.auth
     }
 };
 
