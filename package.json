@@ -9,24 +9,34 @@
     "bootstrap": "^4.5.2",
     "css-loader": "^0.28.4",
     "live-server": "^1.2.1",
+    "moment": "^2.27.0",
     "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-dates": "^21.8.0",
     "react-dom": "^16.13.1",
     "react-modal": "^3.11.2",
+    "react-moment": "^0.9.7",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "sass-loader": "^9.0.2",
     "style-loader": "^0.18.2",
     "validator": "^13.1.1",
     "webpack": "^4.44.1",
     "webpack-dev-server": "^3.11.0"
   },
+  "homepage": "https://radiun42.github.io/Mobile-Store-WebApp/",
   "scripts": {
     "serve": "live-server public",
-    "build": "webpack",
-    "dev-server": "webpack-dev-server --public"
+    "build:dev": "webpack",
+    "build:prod": "webpack -p --env production --optimize-minimize",
+    "dev-server": "webpack-dev-server --public",
+    "deploy": "gh-pages -d public",
+    "clean-gh": "gh-pages-clean"
   },
   "name": "boilerplate",
   "version": "1.0.0",
@@ -35,6 +45,8 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "gh-pages": "^3.1.0",
+    "terser-webpack-plugin": "^4.1.0",
     "webpack-cli": "^3.3.12"
   }
 }
