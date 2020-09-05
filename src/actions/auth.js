@@ -31,7 +31,7 @@ export const loadUser = () => async dispatch => {
 };
 
 //Login user
-export const register = ({ username, password, name }) => async dispatch => {
+export const login = (username, password) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
@@ -40,11 +40,11 @@ export const register = ({ username, password, name }) => async dispatch => {
 
     const body = {
         username,
-        password,
-        name
+        password
     };
 
     try {
+
         const res = await axios.post(`${urlAPI}/api/auth`, body, config);
 
         dispatch({
@@ -60,7 +60,7 @@ export const register = ({ username, password, name }) => async dispatch => {
         const errors = e.response.data.errors;
 
         if (errors) {
-            errors.map(error => dispatch(setAlert(error.message, 'dangger')));
+            errors.map(error => dispatch(setAlert(error.msg, 'dangger')));
         }
 
         dispatch({
@@ -70,7 +70,7 @@ export const register = ({ username, password, name }) => async dispatch => {
 };
 
 //Register user
-export const register = ({ username, password }) => async dispatch => {
+export const register = ({ username, password, name }) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
@@ -79,7 +79,8 @@ export const register = ({ username, password }) => async dispatch => {
 
     const body = {
         username,
-        password
+        password,
+        name
     };
 
     try {
@@ -108,6 +109,15 @@ export const register = ({ username, password }) => async dispatch => {
 };
 
 //Logout user
-export const logout = () => dispatch => {
-    dispatch({ type: LOGOUT });
+export const logout = () => async dispatch => {
+    try {
+        await axios.get(`${urlAPI}/api/auth/logout`);
+
+        dispatch({
+            type: LOGOUT
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
 };

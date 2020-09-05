@@ -7,7 +7,7 @@ const initialState = {
     token: localStorage.getItem('token'),
     user: null,
     loading: true,
-    isAuthenticatied: null
+    isAuthenticated: null
 };
 
 // @desc reducer is used in authenticated, Load user data, add token, remote token.
@@ -39,8 +39,9 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: false,
-                loading: true,
-                token: null
+                loading: false,
+                token: null,
+                user: null
             };
         default:
             return state;
