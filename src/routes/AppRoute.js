@@ -4,6 +4,8 @@ import Header from '../components/layout/Header';
 import Login from '../components/auth/Login';
 import Alert from '../components/layout/Alert';
 import Register from '../components/auth/Register';
+import ProductList from '../components/products/ProductList';
+import AddProduct from '../components/products/product-forms/AddProduct';
 
 const AppRoute = () => (
     <BrowserRouter>
@@ -12,8 +14,10 @@ const AppRoute = () => (
             <section className='container'>
                 <Alert />
                 <Switch>
+                    <Route exact path={["/", "/products"]} component={ProductList} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
+                    <Route exact path="/products/add" component={AddProduct} />
                 </Switch>
             </section>
         </Fragment>
