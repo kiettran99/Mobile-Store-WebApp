@@ -19,9 +19,12 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
     const userLinks = (
         <Fragment>
             {user && <label className="mr-3">Hello, {user.name}</label>}
-            <Link className="btn btn-success mr-2" to="/cart"
-            ><i className="fas fa-shopping-cart" style={{ transform: "rotateY(180deg) !important" }} ></i>
-        &nbsp;View Cart</Link>
+
+            {user && user.role === 'customer' ?
+                <Link className="btn btn-success mr-2" to="/cart"
+                ><i className="fas fa-shopping-cart" style={{ transform: "rotateY(180deg) !important" }} ></i>
+                &nbsp;View Cart</Link> :
+                <Link className="btn btn-success mr-2" to="/products/add">Add Product</Link>}
             <button className="btn btn-danger" onClick={() => {
                 logout();
             }}
@@ -43,7 +46,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
 
                     <div className="col text-right">
                         <div style={{ marginTop: "60px" }}>
-                        {!loading && (<Fragment>{isAuthenticated ? userLinks : guestLinks}</Fragment>)}
+                            {!loading && (<Fragment>{isAuthenticated ? userLinks : guestLinks}</Fragment>)}
                         </div>
                     </div>
                 </div>
