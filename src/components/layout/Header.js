@@ -39,7 +39,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <h1 style={{ fontSize: "4rem", paddingTop: "50px" }}>
+                        <h1 style={{ fontSize: "2rem", paddingTop: "50px" }}>
                             <Link to="/">Mobile Store</Link>
                         </h1>
                     </div>

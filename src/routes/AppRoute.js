@@ -6,6 +6,8 @@ import Alert from '../components/layout/Alert';
 import Register from '../components/auth/Register';
 import ProductList from '../components/products/ProductList';
 import AddProduct from '../components/products/product-forms/AddProduct';
+import ProductDetail from '../components/products/ProductDetail';
+import NotFoundPage from '../components/not-found-page/NotFoundPage';
 import PrivateRoute from '../components/routing/PrivateRoute';
 
 const AppRoute = () => (
@@ -18,7 +20,9 @@ const AppRoute = () => (
                     <Route exact path={["/", "/products"]} component={ProductList} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
+                    <Route exact path="/products/:id" component={ProductDetail} />
                     <PrivateRoute exact path="/products/add" component={AddProduct} />
+                    <Route component={NotFoundPage} />
                 </Switch>
             </section>
         </Fragment>
