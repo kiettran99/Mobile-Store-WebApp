@@ -1,10 +1,16 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
 const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+
+    const [collapsed, setCollapsed] = useState(true);
+
+    const onToggleNavigation = () => {
+        setCollapsed(!collapsed);
+    };
 
     const guestLinks = (
         <Fragment>
@@ -33,25 +39,51 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout }) => {
     );
 
     return (
-        <div
-            className="container-fluid"
-            style={{ height: "25vh", backgroundColor: "rgb(238, 238, 238)" }} >
-            <div className="container">
-                <div className="row">
-                    <div className="col">
-                        <h1 style={{ fontSize: "2rem", paddingTop: "50px" }}>
-                            <Link to="/">Mobile Store</Link>
-                        </h1>
-                    </div>
+        <nav className="navbar navbar-expand-xl navbar-light bg-light">
+            <Link className="navbar-brand" to="/">Mobile Store</Link>
 
-                    <div className="col text-right">
-                        <div style={{ marginTop: "60px" }}>
-                            {!loading && (<Fragment>{isAuthenticated ? userLinks : guestLinks}</Fragment>)}
+            <button className="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContentXL" aria-controls="navbarSupportedContentXL"
+                aria-expanded="false" aria-label="Toggle navigation"
+                onClick={() => onToggleNavigation()} >
+                <span className="navbar-toggler-icon"></span>
+            </button>
+
+            <div className={`${collapsed ? 'collapse': ''} navbar-collapse`} id="navbarSupportedContentXL">
+                <ul className="navbar-nav mr-auto">
+                    <li className="nav-item active">
+                        <Link className="nav-link" to="/" >Home <span className="sr-only">(current)</span></Link>
+                    </li>
+                    {/* <li className="nav-item">
+                        <a className="nav-link" href="#">Link</a>
+                    </li> */}
+                    {/* <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownXL" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div className={`dropdown-menu ${toggle ? 'show': ''}`} aria-labelledby="navbarDropdownXL">
+                            <a className="dropdown-item" href="#">Action</a>
+                            <a className="dropdown-item" href="#">Another action</a>
+                            <div className="dropdown-divider"></div>
+                            <a className="dropdown-item" href="#">Something else here</a>
                         </div>
+                    </li> */}
+                    {/* <li className="nav-item">
+                        <a className="nav-link disabled" href="#">Disabled</a>
+                    </li> */}
+                </ul>
+                {/* <form className="form-inline my-2 my-lg-0">
+                    <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form> */}
+
+                <div className="col text-right">
+                    <div>
+                        {!loading && (<Fragment>{isAuthenticated ? userLinks : guestLinks}</Fragment>)}
                     </div>
                 </div>
             </div>
-        </div>
+        </nav>
     );
 }
 

@@ -11,10 +11,10 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
     }, [getProduct]);
 
     return loading ? <Spinnet /> : (!product ? <NotFoundPage /> :
-        <div className="card m-3">
+        <div className="card m-3 rounded">
             <div className="row no-gutters">
                 <aside className="col-md-6">
-                    <article className="gallery-wrap">
+                    <article className="gallery-wrap rounded">
                         <div className="img-big-wrap">
                             <div> <a href="#">
                                 <img style={{ height: "30.25rem"}} src={product.imageUrl} />
@@ -28,7 +28,7 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
                         </div> */}
                     </article>
                 </aside>
-                <main className="col-md-6 border-left p-5">
+                <main className="col-md-6 p-5">
                     <article className="content-body">
 
                         <h2 className="title">{product.name}</h2>
@@ -48,7 +48,6 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
                                     <i className="fas fa-star"></i>
                                 </li>
                             </ul>
-
 
                         </div>
 

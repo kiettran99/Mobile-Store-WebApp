@@ -14,14 +14,14 @@ const ProductList = ({ products: { products, loading }, getProducts }) => {
     return (
         <div className="container">
             <br />
-            <p className="text-center">More bootstrap 4 components on 
-                <a href="http://bootstrap-ecommerce.com/">
-                    Bootstrap-ecommerce.com</a>
+            <p className="text-center">
+                We are delivering to your region with limited shipping options.
+                Please expect extended delivery time. <a>Learn more.</a>
             </p>
             <hr />
 
             <div className="row">
-                {loading ? <Spinnet />: products.map(product => (
+                {loading ? <Spinnet /> : products.map(product => (
                     <ProductItem key={product._id} product={product} />
                 ))}
             </div>
