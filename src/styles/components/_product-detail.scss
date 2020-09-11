@@ -1,0 +1,19 @@
+.product-image {
+    height: 35rem;
+}
+
+.img-big-wrap {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+@media(max-width: 37.5rem) {
+    .product-image {
+        width: 80%;
+    }
+
+    .img-big-wrap {
+        text-align: center;
+        margin-top: 3rem;
+    }
+}

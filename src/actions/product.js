@@ -18,7 +18,7 @@ export const getProducts = () => async dispatch => {
         console.log(e);
         dispatch({
             type: PRODUCT_ERROR,
-            payload: res.data
+            payload: { msg: e.response.data, status: e.response.statusText }
         });
     }
 };
@@ -33,9 +33,17 @@ export const getProduct = (id) => async dispatch => {
         });
     }
     catch (e) {
+        //console.log(e.response);
+        /*  config: {url: "https://mobile-store-1032.herokuapp.com/api/products/5f5481d5c7ce460017030ef54", method: "get", headers: {…}, transformRequest: Array(1), transformResponse: Array(1), …}
+            data: "Product is not exists."
+            headers: {content-length: "22", content-type: "text/html; charset=utf-8"}
+            request: XMLHttpRequest {readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, onreadystatechange: ƒ, …}
+            status: 404
+            statusText: "Not Found" */
+
         dispatch({
             type: PRODUCT_ERROR,
-            payload: res.data
+            payload: { msg: e.response.data, status: e.response.statusText }
         });
     }
 };
@@ -64,7 +72,7 @@ export const addProduct = (formData, history) => async dispatch => {
         console.log(e);
         dispatch({
             type: PRODUCT_ERROR,
-            payload: res.data
+            payload: { msg: e.response.data, status: e.response.statusText }
         });
     }
 };

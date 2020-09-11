@@ -1,5 +1,5 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
+// const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env, argv) => {
 
@@ -23,11 +23,11 @@ module.exports = (env, argv) => {
       }]
     },
     plugins: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: argv['optimize-minimize'] // only if -p or --optimize-minimize were passed
-        }
-      })
+      // new TerserPlugin({
+      //   terserOptions: {
+      //     compress: argv['optimize-minimize'] // only if -p or --optimize-minimize were passed
+      //   }
+      // })
     ],
     devtool: isProduction ? 'source-map' : 'cheap-module-eval-source-map',
     devServer: {
