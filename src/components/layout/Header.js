@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import LoadingBar from 'react-top-loading-bar';
 
 const Header = ({ auth: { isAuthenticated, loading, user }, logout, loadingBar }) => {
 
@@ -94,7 +95,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout, loadingBar }
                 </form> */}
 
                     <div className="col text-right">
-                        <div style={{ marginTop: "60px" }}>
+                        <div>
                             {!loading && (<Fragment>{isAuthenticated ? userLinks : guestLinks}</Fragment>)}
                         </div>
                     </div>
@@ -111,7 +112,8 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        loadingBar: state.loadingBar
     }
 };
 

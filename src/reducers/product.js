@@ -1,5 +1,5 @@
 import {
-    GET_PRODUCT, GET_PRODUCTS, PRODUCT_ERROR, ADD_PRODUCT
+    GET_PRODUCT, GET_PRODUCTS, PRODUCT_ERROR, ADD_PRODUCT, CLEAR_PRODUCT
 } from '../actions/types';
 
 const initialState = {
@@ -31,6 +31,12 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: false,
                 errors: payload
+            };
+        case CLEAR_PRODUCT:
+            return {
+                ...state,
+                loading: true,
+                product: null
             };
         default:
             return state;

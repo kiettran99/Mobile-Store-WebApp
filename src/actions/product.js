@@ -1,5 +1,6 @@
 import {
-    GET_PRODUCT, GET_PRODUCTS, ADD_PRODUCT, PRODUCT_ERROR
+    GET_PRODUCT, GET_PRODUCTS, ADD_PRODUCT, PRODUCT_ERROR, CLEAR_PRODUCT,
+    REQUEST_LOADING, COMPLETE_LOADING
 } from './types';
 import urlAPI from '../utils/urlAPI';
 import axios from 'axios';
@@ -25,6 +26,15 @@ export const getProducts = () => async dispatch => {
 
 export const getProduct = (id) => async dispatch => {
     try {
+
+        dispatch({
+            type: CLEAR_PRODUCT
+        })
+
+        dispatch({
+            type: REQUEST_LOADING
+        });
+
         const res = await axios.get(`${urlAPI}/api/products/${id}`);
 
         dispatch({
@@ -46,11 +56,19 @@ export const getProduct = (id) => async dispatch => {
             payload: { msg: e.response.data, status: e.response.statusText }
         });
     }
+    finally {
+        dispatch({
+            type: COMPLETE_LOADING
+        });
+    }
 };
 
 export const addProduct = (formData, history) => async dispatch => {
     try {
-        console.log('Request create a product');
+        dispatch({
+            type: REQUEST_LOADING
+        });
+
         const config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -58,7 +76,7 @@ export const addProduct = (formData, history) => async dispatch => {
         };
 
         const res = await axios.post(`${urlAPI}/api/products`, formData, config);
-        console.log(res);
+
         dispatch({
             type: ADD_PRODUCT,
             payload: res.data
@@ -73,6 +91,11 @@ export const addProduct = (formData, history) => async dispatch => {
         dispatch({
             type: PRODUCT_ERROR,
             payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+    finally {
+        dispatch({
+            type: COMPLETE_LOADING
         });
     }
 };

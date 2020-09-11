@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 
 const ProductItem = ({ product: { _id, name, imageUrl, price, description, manufacturer, category,
     conditionProduct, quantity } }) => (
-        <div className="col-md-4">
+        <div className="col-lg-3 col-md-4 rounded">
             <figure className="card card-product">
                 <div className="img-wrap">
                     <img src={imageUrl} width={348} height={220} />
                 </div>
                 <figcaption className="info-wrap">
-                    <h4 className="title">{name}</h4>
-                    <p className="desc">{description}</p>
+                    <h4 className="text-primary">{name}</h4>
+                    <p className="text-secondary">{description}</p>
                     <div className="rating-wrap">
                         <div className="label-rating">132 reviews</div>
                         <div className="label-rating">154 orders </div>

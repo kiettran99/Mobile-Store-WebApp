@@ -14,3 +14,8 @@ export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const PRODUCT_ERROR = 'PRODUCT_ERROR';
+export const CLEAR_PRODUCT = 'CLEAR_PRODUCT';
+
+export const REQUEST_LOADING = 'REQUEST_LOADING';
+export const COMPLETE_LOADING = 'COMPLETE_LOADING';
+export const IDLE_LOADING = 'IDLE_LOADING';

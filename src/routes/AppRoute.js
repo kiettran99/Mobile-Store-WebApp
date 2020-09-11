@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import Header from '../components/layout/Header';
 import Login from '../components/auth/Login';
 import Alert from '../components/layout/Alert';
@@ -20,8 +21,8 @@ const AppRoute = () => (
                     <Route exact path={["/", "/products"]} component={ProductList} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
-                    <Route exact path="/products/:id" component={ProductDetail} />
                     <PrivateRoute exact path="/products/add" component={AddProduct} />
+                    <Route exact path="/products/:id" component={ProductDetail} />
                     <Route component={NotFoundPage} />
                 </Switch>
             </section>

@@ -1,6 +1,7 @@
 import {
     REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR,
-    LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT
+    LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT,
+    REQUEST_LOADING, COMPLETE_LOADING
 } from '../actions/types';
 import axios from 'axios';
 import urlAPI from '../utils/urlAPI';
@@ -44,6 +45,9 @@ export const login = (username, password) => async dispatch => {
     };
 
     try {
+        dispatch({
+            type: REQUEST_LOADING
+        });
 
         const res = await axios.post(`${urlAPI}/api/auth`, body, config);
 
@@ -67,6 +71,11 @@ export const login = (username, password) => async dispatch => {
             type: LOGIN_FAIL
         });
     }
+    finally {
+        dispatch({
+            type: COMPLETE_LOADING
+        });
+    }
 };
 
 //Register user
@@ -84,6 +93,10 @@ export const register = ({ username, password, name }) => async dispatch => {
     };
 
     try {
+        dispatch({
+            type: REQUEST_LOADING
+        });
+
         const res = await axios.post(`${urlAPI}/api/users`, body, config);
 
         dispatch({
@@ -106,11 +119,20 @@ export const register = ({ username, password, name }) => async dispatch => {
             type: REGISTER_FAIL
         });
     }
+    finally {
+        dispatch({
+            type: COMPLETE_LOADING
+        });
+    }
 };
 
 //Logout user
 export const logout = () => async dispatch => {
     try {
+        dispatch({
+            type: REQUEST_LOADING
+        });
+
         await axios.get(`${urlAPI}/api/auth/logout`);
 
         dispatch({
@@ -119,5 +141,10 @@ export const logout = () => async dispatch => {
     }
     catch (e) {
         console.log(e);
+    }
+    finally {
+        dispatch({
+            type: COMPLETE_LOADING
+        });
     }
 };
