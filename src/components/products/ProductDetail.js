@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getProduct } from '../../actions/product';
 import NotFoundPage from '../not-found-page/NotFoundPage';
 import Spinnet from '../layout/Spinnet';
+import ProductComments from './ProductComments';
 
 const ProductDetail = ({ getProduct, match, product: { product, loading } }) => {
     useEffect(() => {
@@ -11,15 +12,14 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
     }, [getProduct]);
 
     return loading ? <Spinnet /> : (!product ? <NotFoundPage /> :
-        <div className="container card m-3 rounded">
+        <div className="container-flud card m-3 rounded shadow-sm">
             <div className="row no-gutters">
-                <aside className="col-md-6">
+                <aside className="col-lg-6 col-md-12">
                     <article className="gallery-wrap rounded">
                         <div className="img-big-wrap">
-                            <div> <a href="#">
+                            <a href="#">
                                 <img className="product-image rounded" src={product.imageUrl} />
                             </a>
-                            </div>
                         </div>
                         {/* <div className="thumbs-wrap">
                             <a href="" className="item-thumb"> <img src="bootstrap-ecommerce-html/images/items/12.jpg" /></a>
@@ -28,7 +28,7 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
                         </div> */}
                     </article>
                 </aside>
-                <main className="col-md-6 p-5">
+                <main className="col-lg-6 col-md-12 p-5">
                     <article className="content-body">
 
                         <h2 className="title">{product.name}</h2>
@@ -55,7 +55,7 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
                             <var className="price h4">${product.price}</var>
                         </div>
 
-                        <p>{product.description}</p>
+                        <p className="text-muted">{product.description}</p>
 
 
                         {/* <dl className="row">
@@ -103,6 +103,7 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
                     </article>
                 </main>
             </div>
+            <ProductComments likes={product.likes} comments={product.comments}/>
         </div>
     );
 };

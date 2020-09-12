@@ -21,12 +21,15 @@ const ProductList = ({ products: { products, loading }, getProducts }) => {
             <hr />
 
             <div className="row">
-                {loading ? <Spinnet /> : products.map(product => (
-                    <ProductItem key={product._id} product={product} />
-                ))}
+                {loading ? <Spinnet /> :
+                    products.map(product => (
+                        <ProductItem key={product._id} product={product} />
+                    ))}
             </div>
 
-
+            {/* <div>
+                <button className="btn btn-primary w-50 m-auto">Next More</button>
+            </div> */}
         </div>
     );
 };
