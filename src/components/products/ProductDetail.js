@@ -13,6 +13,7 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
 
     return loading ? <Spinnet /> : (!product ? <NotFoundPage /> :
         <div className="container-flud card m-3 rounded shadow-sm">
+            {console.log('Render productDetail')}
             <div className="row no-gutters">
                 <aside className="col-lg-6 col-md-12">
                     <article className="gallery-wrap rounded">
@@ -103,7 +104,7 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
                     </article>
                 </main>
             </div>
-            <ProductComments likes={product.likes} comments={product.comments}/>
+            <ProductComments productId={product._id} likes={product.likes} comments={product.comments} />
         </div>
     );
 };

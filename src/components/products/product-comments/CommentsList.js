@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CommentItem from './CommentItem';
 
-const CommentsList = ({ comments }) => {
+import ProductContext from '../../../contexts/ProductContext';
+
+const CommentsList = () => {
+
+    const { comments, productId } = useContext(ProductContext);
+
     return comments && comments.map(comment => (
-        <CommentItem key={comment._id} comment={comment} />
+        <CommentItem key={comment._id} productId={productId} comment={comment} />
     ));
 }
 

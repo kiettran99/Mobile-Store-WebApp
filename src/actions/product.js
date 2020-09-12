@@ -1,6 +1,7 @@
 import {
     GET_PRODUCT, GET_PRODUCTS, ADD_PRODUCT, PRODUCT_ERROR, CLEAR_PRODUCT,
-    REQUEST_LOADING, COMPLETE_LOADING
+    REQUEST_LOADING, COMPLETE_LOADING,
+    ADD_COMMENT, REMOVE_COMMENT, UPDATE_LIKES
 } from './types';
 import urlAPI from '../utils/urlAPI';
 import axios from 'axios';
@@ -85,6 +86,106 @@ export const addProduct = (formData, history) => async dispatch => {
         dispatch(setAlert('Add product successfully', 'success'));
 
         history.push('/');
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+    finally {
+        dispatch({
+            type: COMPLETE_LOADING
+        });
+    }
+};
+
+// @param
+// @id Product's ID
+export const likeProduct = (id) => async dispatch => {
+    try {
+        const res = await axios.put(`${urlAPI}/api/products/like/${id}`);
+
+        dispatch({
+            type: UPDATE_LIKES,
+            payload: res.data
+        });
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+};
+
+// @param
+// @id Product's ID
+export const unlikeProduct = (id) => async dispatch => {
+    try {
+        const res = await axios.put(`${urlAPI}/api/products/unlike/${id}`);
+
+        dispatch({
+            type: UPDATE_LIKES,
+            payload: res.data
+        });
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+};
+
+
+// @param
+// @productId Product's ID
+export const addComment = (productId, formData) => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const res = await axios.put(`${urlAPI}/api/products/comment/${productId}`, formData, config);
+
+        dispatch({
+            type: ADD_COMMENT,
+            payload: res.data
+        });
+
+        dispatch(setAlert('Comment Added', 'success'));
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+}
+
+// @param
+// @id Product's ID
+export const removeComment = (productId, commentId) => async dispatch => {
+    try {
+        dispatch({
+            type: REQUEST_LOADING
+        });
+
+        await axios.delete(`${urlAPI}/api/products/comment/${productId}/${commentId}`);
+
+        dispatch({
+            type: REMOVE_COMMENT,
+            payload: commentId
+        });
+
+        dispatch(setAlert('Comment Removed', 'success'));
     }
     catch (e) {
         console.log(e);

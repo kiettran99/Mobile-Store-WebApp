@@ -2,16 +2,24 @@ import React, { useMemo, useState } from 'react';
 // import moment from 'moment';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { connect } from 'react-redux';
+import { removeComment } from '../../../actions/product';
 
 dayjs.extend(relativeTime);
 
-const CommentItem = ({ comment: { name, text, date } }) => {
+const CommentItem = ({ comment: { _id, name, text, date, user: userComment },
+    auth: { user, isAuthenticated },
+    productId }) => {
 
     const [relativeTime, setRelativeTime] = useState('');
 
     useMemo(() => {
-         setRelativeTime(dayjs(date).fromNow());
+        setRelativeTime(dayjs(date).fromNow());
     }, [date]);
+
+    const onRemoveComment = (productId, commentId) => {
+        removeComment(productId, commentId);
+    }
 
     return (
         <div className="container shadow-sm p-2 mt-2 rounded">
@@ -29,9 +37,11 @@ const CommentItem = ({ comment: { name, text, date } }) => {
 
                     <div className="rounded text-muted mt-1">
                         <p className="d-inline">{relativeTime}</p>
-                        <p className="d-inline ml-3">Like</p>
-                        <p className="d-inline ml-3">Reply</p>
-                        <p className="d-inline ml-3">Remove</p>
+                        <p className="btn d-inline ml-3 text-primary">Like</p>
+                        <p className="btn d-inline ml-3 text-primary">Reply</p>
+                        {user && isAuthenticated && user._id === userComment
+                            && <p className="btn d-inline ml-3 text-danger"
+                                onClick={() => onRemoveComment(productId, _id)}>Remove</p>}
                     </div>
                 </div>
                 <div>
@@ -42,4 +52,8 @@ const CommentItem = ({ comment: { name, text, date } }) => {
     )
 }
 
-export default CommentItem;
+const mapStateToProps = (state) => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, { removeComment })(CommentItem);

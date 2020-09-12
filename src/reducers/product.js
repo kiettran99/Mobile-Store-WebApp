@@ -1,5 +1,6 @@
 import {
-    GET_PRODUCT, GET_PRODUCTS, PRODUCT_ERROR, ADD_PRODUCT, CLEAR_PRODUCT
+    GET_PRODUCT, GET_PRODUCTS, PRODUCT_ERROR, ADD_PRODUCT, CLEAR_PRODUCT,
+    ADD_COMMENT, REMOVE_COMMENT, UPDATE_LIKES
 } from '../actions/types';
 
 const initialState = {
@@ -25,6 +26,33 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: false,
                 products: payload
+            };
+        case UPDATE_LIKES:
+            return {
+                ...state,
+                loading: false,
+                product: {
+                    ...state.product,
+                    likes: payload
+                }
+            };
+        case ADD_COMMENT:
+            return {
+                ...state,
+                loading: false,
+                product: {
+                    ...state.product,
+                    comments: payload
+                }
+            };
+        case REMOVE_COMMENT:
+            return {
+                ...state,
+                loading: false,
+                product: {
+                    ...state.product,
+                    comments: comments.filter(comment => comment.id !== payload)
+                }
             };
         case PRODUCT_ERROR:
             return {
