@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { connect } from 'react-redux';
+import { addComment } from '../../../actions/product';
+import ProductContext from '../../../contexts/ProductContext';
 
-const CommentsForm = () => {
+const CommentsForm = ({ addComment }) => {
 
     const [text, setText] = useState('');
 
+    const { productId } = useContext(ProductContext);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        addComment(productId, { text });
+        setText('');
+    };
+
     return (
         <div className="shadow-sm p-2 bg-light mt-2 rounded">
-            <form>
+            <form onSubmit={(e) => onSubmit(e)}>
                 <div className="row">
                     <div className="col-0 form-group ml-4">
                         <img src={"https://cdn.iconscout.com/icon/free/png-256/avatar-380-456332.png"}
@@ -30,4 +41,4 @@ const CommentsForm = () => {
     );
 }
 
-export default CommentsForm;
+export default connect(null, { addComment })(CommentsForm);

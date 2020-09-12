@@ -146,6 +146,10 @@ export const unlikeProduct = (id) => async dispatch => {
 // @productId Product's ID
 export const addComment = (productId, formData) => async dispatch => {
     try {
+        dispatch({
+            type: REQUEST_LOADING
+        });
+
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -166,6 +170,11 @@ export const addComment = (productId, formData) => async dispatch => {
         dispatch({
             type: PRODUCT_ERROR,
             payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+    finally {
+        dispatch({
+            type: COMPLETE_LOADING
         });
     }
 }

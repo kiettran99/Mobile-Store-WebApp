@@ -16,7 +16,6 @@ const CommentsBar = ({ likeProduct, unlikeProduct,
 
 
     useEffect(() => {
-        console.log(isAuthenticated);
         if (isAuthenticated) {
             setIsLiked(likes.filter(like => like.user === user._id).length > 0);
         }
@@ -31,11 +30,11 @@ const CommentsBar = ({ likeProduct, unlikeProduct,
         else {
             likeProduct(productId);
         }
+        setIsLiked(!isLiked);
     };
 
     return (
         <div className="shadow-sm p-2 bg-light mt-2 rounded">
-            {console.log('render', isLiked)}
             <button
                 className="btn text-secondary ml-3"
                 onClick={() => onLikeHandler()}>

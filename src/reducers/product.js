@@ -51,7 +51,7 @@ export default function(state = initialState, action) {
                 loading: false,
                 product: {
                     ...state.product,
-                    comments: comments.filter(comment => comment.id !== payload)
+                    comments: state.product.comments.filter(comment => comment._id !== payload)
                 }
             };
         case PRODUCT_ERROR:
