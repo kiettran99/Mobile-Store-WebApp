@@ -14,10 +14,12 @@ const CommentsBar = ({ likeProduct, unlikeProduct,
 
     const [isLiked, setIsLiked] = useState(false);
 
-
     useEffect(() => {
         if (isAuthenticated) {
             setIsLiked(likes.filter(like => like.user === user._id).length > 0);
+        }
+        else {
+            setIsLiked(false);
         }
     }, [isAuthenticated, likes]);
 

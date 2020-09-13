@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-const Login = ({ isAuthenticated, login }) => {
+const Login = ({ auth: { isAuthenticated, user }, login, history }) => {
 
     const [formData, setFormData] = useState({
         username: '',
@@ -20,9 +20,21 @@ const Login = ({ isAuthenticated, login }) => {
         minWidth: "24rem"
     };
 
-    if (isAuthenticated) {
-        return <Redirect to='/' />
+    if (isAuthenticated && user) {
+        history.goBack();
     }
+
+    /*
+        Another solution: When Login is successfully, check isAuthenticated true
+        Redirect to home through Redirect (react-router-dom).
+
+        if (isAuthenticated) {
+            return <Redirect to="/" />
+        }
+
+        Current solution: When Login is successfully, check user is loadded then
+        Go back previous page.
+    */
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -80,7 +92,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
+    auth: state.auth
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login })(withRouter(Login));

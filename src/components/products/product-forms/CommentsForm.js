@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { addComment } from '../../../actions/product';
 import ProductContext from '../../../contexts/ProductContext';
 
-const CommentsForm = ({ addComment }) => {
+const CommentsForm = ({ addComment, auth: { isAuthenticated } }) => {
 
     const [text, setText] = useState('');
 
@@ -27,13 +27,17 @@ const CommentsForm = ({ addComment }) => {
                         <textarea className="form-control"
                             value={text}
                             onChange={e => setText(e.target.value)}
-                            placeholder="Write comment here ...." />
+                            disabled={!isAuthenticated}
+                            placeholder={isAuthenticated ? "Write comment here ...." :
+                            "To leave a comment, you need to login."} />
                     </div>
 
                     <div className="col-1 form-group">
-                        <button className="btn btn-primary" type="submit">
+                        <button className="btn btn-primary"
+                            disabled={!isAuthenticated}
+                            type="submit">
                             Submit
-                    </button>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -41,4 +45,8 @@ const CommentsForm = ({ addComment }) => {
     );
 }
 
-export default connect(null, { addComment })(CommentsForm);
+const mapStateToProps = (state) => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, { addComment })(CommentsForm);
