@@ -1,7 +1,9 @@
 import {
     GET_PRODUCT, GET_PRODUCTS, ADD_PRODUCT, PRODUCT_ERROR, CLEAR_PRODUCT,
     REQUEST_LOADING, COMPLETE_LOADING,
-    ADD_COMMENT, REMOVE_COMMENT, UPDATE_LIKES
+    ADD_COMMENT, REMOVE_COMMENT, UPDATE_LIKES,
+    UPDATE_LIKES_COMMENT, ADD_REPLY_COMMENT, REMOVE_REPLY_COMMENT,
+    UPDATE_LIKES_REPLY
 } from './types';
 import urlAPI from '../utils/urlAPI';
 import axios from 'axios';
@@ -209,3 +211,148 @@ export const removeComment = (productId, commentId) => async dispatch => {
         });
     }
 };
+
+// @param
+// @productId Product's ID
+// @commentId Comment's ID
+export const likeComment = (productId, commentId) => async dispatch => {
+    try {
+        const res = await axios.put(`${urlAPI}/api/products/${productId}/comments/like/${commentId}`);
+
+        dispatch({
+            type: UPDATE_LIKES_COMMENT,
+            payload: res.data
+        });
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+}
+
+
+// @productId Product's ID
+// @commentId Comment's ID
+export const unlikeComment = (productId, commentId) => async dispatch => {
+    try {
+        const res = await axios.put(`${urlAPI}/api/products/${productId}/comments/unlike/${commentId}`);
+
+        dispatch({
+            type: UPDATE_LIKES_COMMENT,
+            payload: res.data
+        });
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+}
+
+// @productId Product's ID
+// @commentId Comment's ID
+export const addReplyComment = (productId, commentId, formData) => async dispatch => {
+    try {
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const res = await axios.put(`${urlAPI}/api/products/${productId}/comments/reply/${commentId}`,
+            formData, config);
+
+        dispatch({
+            type: ADD_REPLY_COMMENT,
+            payload: res.data
+        });
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+}
+
+// @productId Product's ID
+// @commentId Comment's ID
+export const removeReplyComment = (productId, commentId, replyId) => async dispatch => {
+    try {
+        dispatch({
+            type: REQUEST_LOADING
+        });
+
+        const res = await axios.delete(`${urlAPI}/api/products/${productId}/comments/reply/${commentId}/${replyId}`);
+
+        dispatch({
+            type: REMOVE_REPLY_COMMENT,
+            payload: res.data
+        });
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+    finally {
+        dispatch({
+            type: COMPLETE_LOADING
+        });
+    }
+}
+
+
+// @productId Product's ID
+// @commentId Comment's ID
+// @replyId Reply's ID
+export const likeReplyComment = (productId, commentId, replyId) => async dispatch => {
+    try {
+
+        const res = await axios.put(`${urlAPI}/api/products/${productId}/comments/${commentId}/reply/like/${replyId}`);
+
+        dispatch({
+            type: UPDATE_LIKES_REPLY,
+            payload: res.data
+        });
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+}
+
+
+// @productId Product's ID
+// @commentId Comment's ID
+// @replyId Reply's ID
+export const unlikeReplyComment = (productId, commentId, replyId) => async dispatch => {
+    try {
+
+        const res = await axios.put(`${urlAPI}/api/products/${productId}/comments/${commentId}/reply/unlike/${replyId}`);
+
+        dispatch({
+            type: UPDATE_LIKES_REPLY,
+            payload: res.data
+        });
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+}

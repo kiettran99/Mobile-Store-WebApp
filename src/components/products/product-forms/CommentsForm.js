@@ -1,9 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { connect } from 'react-redux';
-import { addComment } from '../../../actions/product';
 import ProductContext from '../../../contexts/ProductContext';
 
-const CommentsForm = ({ addComment, auth: { isAuthenticated } }) => {
+const CommentsForm = ({ actionComment, auth: { isAuthenticated } }) => {
 
     const [text, setText] = useState('');
 
@@ -11,7 +10,8 @@ const CommentsForm = ({ addComment, auth: { isAuthenticated } }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        addComment(productId, { text });
+        //addComment(productId, { text });
+        actionComment({ text });
         setText('');
     };
 
@@ -29,7 +29,7 @@ const CommentsForm = ({ addComment, auth: { isAuthenticated } }) => {
                             onChange={e => setText(e.target.value)}
                             disabled={!isAuthenticated}
                             placeholder={isAuthenticated ? "Write comment here ...." :
-                            "To leave a comment, you need to login."} />
+                                "To leave a comment, you need to login."} />
                     </div>
 
                     <div className="col-1 form-group">
@@ -49,4 +49,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { addComment })(CommentsForm);
+export default connect(mapStateToProps)(CommentsForm);

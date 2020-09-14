@@ -3,24 +3,22 @@ import React, { useMemo, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { connect } from 'react-redux';
-import { removeComment, likeComment, unlikeComment, addReplyComment } from '../../../actions/product';
+import { removeReplyComment, likeReplyComment, unlikeReplyComment } from '../../../actions/product';
 import { withRouter } from 'react-router-dom';
-import CommentsForm from '../product-forms/CommentsForm';
-import RepliesList from './RepliesList';
 
 dayjs.extend(relativeTime);
 
-const CommentItem = ({ comment: { _id, name, text, date, user: userComment, likes, replies },
+const ReplyItem = ({ reply: { _id, name, text, date, user: userComment, likes },
     auth: { user, isAuthenticated },
-    productId, removeComment, history,
-    likeComment, unlikeComment, addReplyComment }) => {
+    onCommentsForm,
+    productId, commentId, removeReplyComment, history,
+    likeReplyComment, unlikeReplyComment }) => {
 
     const dateRelative = useMemo(() => (
         < p className="d-inline" > {dayjs(date).fromNow()}</p >
     ), [date]);
 
     const [isLiked, setIsLiked] = useState(false);
-    const [commentForm, setCommentForm] = useState(false);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -33,13 +31,7 @@ const CommentItem = ({ comment: { _id, name, text, date, user: userComment, like
 
     const onRemoveComment = () => {
         if (window.confirm('Are you sure? This can NOT be undone !')) {
-            removeComment(productId, _id);
-        }
-    }
-
-    const onCommentsForm = () => {
-        if (!commentForm) {
-            setCommentForm(true);
+            removeReplyComment(productId, commentId, _id);
         }
     }
 
@@ -47,16 +39,12 @@ const CommentItem = ({ comment: { _id, name, text, date, user: userComment, like
         if (!isAuthenticated) {
             history.push('/login');
         } else if (isLiked) {
-            unlikeComment(productId, _id);
+            unlikeReplyComment(productId, commentId, _id);
         }
         else {
-            likeComment(productId, _id);
+            likeReplyComment(productId, commentId, _id);
         }
         setIsLiked(!isLiked);
-    };
-
-    const actionComment = (formData) => {
-        addReplyComment(productId, _id, formData);
     };
 
     return (
@@ -91,8 +79,6 @@ const CommentItem = ({ comment: { _id, name, text, date, user: userComment, like
                                     onClick={() => onRemoveComment()}>Remove</p>}
                         </div>
                     </div>
-                    <RepliesList productId={productId} commentId={_id} replies={replies} onCommentsForm={onCommentsForm} />
-                    {commentForm && <CommentsForm actionComment={actionComment} />}
                 </div>
                 <div>
 
@@ -106,4 +92,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { removeComment, likeComment, unlikeComment, addReplyComment })(withRouter(CommentItem));
+export default connect(mapStateToProps, { removeReplyComment, likeReplyComment, unlikeReplyComment })(withRouter(ReplyItem));

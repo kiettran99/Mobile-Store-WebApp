@@ -1,6 +1,8 @@
 import {
     GET_PRODUCT, GET_PRODUCTS, PRODUCT_ERROR, ADD_PRODUCT, CLEAR_PRODUCT,
-    ADD_COMMENT, REMOVE_COMMENT, UPDATE_LIKES
+    ADD_COMMENT, REMOVE_COMMENT, UPDATE_LIKES,
+    UPDATE_LIKES_COMMENT, ADD_REPLY_COMMENT, REMOVE_REPLY_COMMENT,
+    UPDATE_LIKES_REPLY
 } from '../actions/types';
 
 const initialState = {
@@ -10,7 +12,7 @@ const initialState = {
     errors: {}
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
@@ -45,6 +47,23 @@ export default function(state = initialState, action) {
                     comments: payload
                 }
             };
+        case UPDATE_LIKES_COMMENT:
+        case ADD_REPLY_COMMENT:
+        case REMOVE_REPLY_COMMENT:
+        case UPDATE_LIKES_REPLY:
+            return {
+                ...state,
+                loading: false,
+                product: {
+                    ...state.product,
+                    comments: state.product.comments.map(comment => {
+                        if (comment._id === payload._id) {
+                            return payload;
+                        }
+                        return comment;
+                    })
+                }
+            }
         case REMOVE_COMMENT:
             return {
                 ...state,
