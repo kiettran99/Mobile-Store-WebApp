@@ -36,7 +36,7 @@ const CommentsBar = ({ likeProduct, unlikeProduct,
     };
 
     return (
-        <div className="shadow-sm p-2 bg-light mt-2 rounded">
+        <div className="shadow-sm p-1 bg-light mt-2 rounded">
             <button
                 className="btn text-secondary ml-3"
                 onClick={() => onLikeHandler()}>

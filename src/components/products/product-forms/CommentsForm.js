@@ -25,7 +25,7 @@ const CommentsForm = ({ actionComment, auth: { isAuthenticated } }) => {
                     </div> */}
 
                     {/* {"col-xl-10 col-lg-9 col-md-9 col-sm-8 col-7"} */}
-                    <div class="input-group col-sm-11 m-sm-auto mb-3">
+                    <div className="input-group col-sm-11 m-sm-auto mb-3">
                         <textarea className="form-control"
                             value={text}
                             onChange={e => setText(e.target.value)}
@@ -33,12 +33,12 @@ const CommentsForm = ({ actionComment, auth: { isAuthenticated } }) => {
                             placeholder={isAuthenticated ? "Write comment here ...." :
                                 "To leave a comment, you need to login."} />
 
-                        <div class="input-group-append">
-                            <button className="btn btn-outline-secondary p-1"
+                        <div className="input-group-append">
+                            <button className="btn btn-primary p-3"
                                 disabled={!isAuthenticated}
                                 type="submit">
-                                Submit
-                        </button>
+                                <i className="fas fa-paper-plane"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

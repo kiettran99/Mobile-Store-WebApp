@@ -87,9 +87,16 @@ const ProductDescription = ({ product }) => {
                         </div> */}
                     </div>
 
-                    <a href="#" className="btn btn-primary mr-2"> Buy now </a>
-                    <a href="#" className="btn btn-outline-primary"> <span className="text">Add to cart</span> <i
-                        className="fas fa-shopping-cart"></i> </a>
+                    <div className="form-row">
+                        <div className="form-group">
+                            <a href="#" className="btn btn-primary mr-2"> Buy now </a>
+                        </div>
+
+                        <div className="form-group">
+                            <a href="#" className="btn btn-outline-primary"> <span className="text">Add to cart</span> <i
+                                className="fas fa-shopping-cart"></i> </a>
+                        </div>
+                    </div>
                 </article>
             </main>
         </div>

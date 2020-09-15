@@ -54,7 +54,7 @@ const ReplyItem = ({ reply: { _id, name, text, date, user: userComment, likes },
                     <img src="https://cdn.iconscout.com/icon/free/png-256/avatar-380-456332.png" className="circle rounded" width="35" />
                 </div>
 
-                <div className="col-md-10 col-sm-10 col-12 p-3 rounded">
+                <div className="col-lg-11 col-md-10 col-sm-10 col-12 p-3 rounded">
                     <div>
                         {likes && likes.length > 0 &&
                             <p className="float-right mt-5 bg-light shadow-sm rounded text-muted">
