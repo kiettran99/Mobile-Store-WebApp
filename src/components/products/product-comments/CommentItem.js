@@ -76,7 +76,7 @@ const CommentItem = ({ comment: { _id, name, text, date, user: userComment, like
 
                         <div className="bg-light p-2">
                             <p className="m-0 ml-3">{name}</p>
-                            <p className="text-muted ml-3">{text}</p>
+                            <p className="text-muted ml-3" style={{ whiteSpace: "pre-wrap" }}>{text}</p>
                         </div>
 
                         <div className="rounded text-muted mt-1">

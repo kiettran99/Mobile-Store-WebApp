@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Header from '../components/layout/Header';
@@ -13,7 +13,7 @@ import PrivateRoute from '../components/routing/PrivateRoute';
 
 const AppRoute = () => (
     <BrowserRouter>
-        <Fragment>
+        <>
             <Header />
             <section className='container'>
                 <Alert />
@@ -26,7 +26,7 @@ const AppRoute = () => (
                     <Route component={NotFoundPage} />
                 </Switch>
             </section>
-        </Fragment>
+        </>
     </BrowserRouter>
 );
 

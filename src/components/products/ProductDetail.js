@@ -13,7 +13,7 @@ const ProductDetail = ({ getProduct, match, product: { product, loading } }) => 
     }, [getProduct]);
 
     return loading ? <Spinnet /> : (!product ? <NotFoundPage /> :
-        <div className="container-flud card m-3 rounded shadow-sm">
+        <div className="container-flud card m-md-3 rounded shadow-sm">
             <ProductDescription product={product} />
             <ProductComments productId={product._id} likes={product.likes} comments={product.comments} />
         </div >

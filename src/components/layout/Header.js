@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
@@ -28,17 +28,17 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout, loadingBar }
     }, [loadingBar]);
 
     const guestLinks = (
-        <Fragment>
+        <>
             <Link className="btn btn-success mr-3" to="/login"
             >Login</Link>
 
             <Link className="btn btn-primary" to="/register"
             >Sign up</Link>
-        </Fragment>
+        </>
     );
 
     const userLinks = (
-        <Fragment>
+        <>
             {user && <label className="mr-3">Hello, {user.name}</label>}
 
             {user && user.role === 'customer' ?
@@ -50,7 +50,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout, loadingBar }
                 logout();
             }}
             >Sign out</button>
-        </Fragment>
+        </>
     );
 
     return (
@@ -96,7 +96,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout, loadingBar }
 
                     <div className="col text-right">
                         <div>
-                            {!loading && (<Fragment>{isAuthenticated ? userLinks : guestLinks}</Fragment>)}
+                            {!loading && (<>{isAuthenticated ? userLinks : guestLinks}</>)}
                         </div>
                     </div>
                 </div>
