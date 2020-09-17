@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import LoadingBar from 'react-top-loading-bar';
+import NotificationBar from './notification-bar/NotificationBar';
 
 const Header = ({ auth: { isAuthenticated, loading, user }, logout, loadingBar }) => {
 
@@ -67,10 +68,11 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout, loadingBar }
                 </button>
 
                 <div className={`${collapsed ? 'collapse' : ''} navbar-collapse`} id="navbarSupportedContentXL">
-                    <ul className="navbar-nav mr-auto">
+                    <ul className="navbar-nav ml-auto">
                         <li className="nav-item active">
                             <Link className="nav-link" to="/" >Home <span className="sr-only">(current)</span></Link>
                         </li>
+                        <NotificationBar />
                         {/* <li className="nav-item">
                         <a className="nav-link" href="#">Link</a>
                     </li> */}
@@ -94,7 +96,7 @@ const Header = ({ auth: { isAuthenticated, loading, user }, logout, loadingBar }
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form> */}
 
-                    <div className="col text-right">
+                    <div className="text-right">
                         <div>
                             {!loading && (<>{isAuthenticated ? userLinks : guestLinks}</>)}
                         </div>

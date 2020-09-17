@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { likeProduct, unlikeProduct } from '../../../actions/product';
 import { withRouter } from 'react-router-dom';
 import ProductContext from '../../../contexts/ProductContext';
+import Following from './Following';
 
 const CommentsBar = ({ likeProduct, unlikeProduct,
     auth: { user, isAuthenticated },
@@ -43,6 +44,7 @@ const CommentsBar = ({ likeProduct, unlikeProduct,
                 <span className={`${isLiked ? 'text-primary' : ''}`}>{likes && likes.length} <i className="fas fa-thumbs-up"></i></span></button>
             {/* <button className="btn text-secondary">2 <i className="fas fa-thumbs-down"></i></button> */}
             <button className="btn text-secondar">{length} <i className="fas fa-comments"></i></button>
+            <Following productId={productId} />
         </div >
     );
 }

@@ -12,7 +12,7 @@ const ProductList = ({ products: { products, loading }, getProducts }) => {
     }, [getProducts]);
 
     return (
-        <div className="">
+        <div className="p-2">
             <br />
             <p className="text-center">
                 We are delivering to your region with limited shipping options.

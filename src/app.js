@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom';
 import React, { useEffect } from 'react';
 import 'normalize.css/normalize.css';
-import './styles/styles.scss';
 import "bootstrap/dist/css/bootstrap.min.css";
+import './styles/styles.scss';
 import AppRoute from './routes/AppRoute';
 import { Provider } from 'react-redux';
 import configureStore from './store/ConfigStore';

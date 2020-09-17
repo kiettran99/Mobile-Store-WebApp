@@ -1,14 +1,11 @@
 import React, { useMemo, useEffect, useState } from 'react';
 // import moment from 'moment';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import { connect } from 'react-redux';
 import { removeComment, likeComment, unlikeComment, addReplyComment } from '../../../actions/product';
 import { withRouter } from 'react-router-dom';
 import CommentsForm from '../product-forms/CommentsForm';
 import RepliesList from './RepliesList';
-
-dayjs.extend(relativeTime);
+import dayjs from '../../../utils/relativeDate';
 
 const CommentItem = ({ comment: { _id, name, text, date, user: userComment, likes, replies },
     auth: { user, isAuthenticated },
@@ -62,11 +59,11 @@ const CommentItem = ({ comment: { _id, name, text, date, user: userComment, like
     return (
         <div className="container shadow-sm p-2 mt-2 rounded">
             <div className="row">
-                <div className="col-md-0 p-2 ml-3 mt-2">
+                <div className="col-md-0 p-md-2 ml-3 mt-2">
                     <img src="https://cdn.iconscout.com/icon/free/png-256/avatar-380-456332.png" className="circle rounded" width="35" />
                 </div>
 
-                <div className="col-md-10 col-sm-10 col-9 p-3 rounded">
+                <div className="col-lg-11 col-md-10 col-sm-10 col-10 p-3 rounded">
                     <div>
                         {likes && likes.length > 0 &&
                             <p className="float-right mt-5 bg-light shadow-sm rounded text-muted">
