@@ -2,7 +2,7 @@ import {
     GET_PRODUCT, GET_PRODUCTS, PRODUCT_ERROR, ADD_PRODUCT, CLEAR_PRODUCT,
     ADD_COMMENT, REMOVE_COMMENT, UPDATE_LIKES,
     UPDATE_LIKES_COMMENT, ADD_REPLY_COMMENT, REMOVE_REPLY_COMMENT,
-    UPDATE_LIKES_REPLY
+    UPDATE_LIKES_REPLY, GET_MORE_COMMENTS
 } from '../actions/types';
 
 const initialState = {
@@ -29,6 +29,15 @@ export default function (state = initialState, action) {
                 loading: false,
                 products: payload
             };
+        case GET_MORE_COMMENTS:
+            return {
+                ...state,
+                loading: false,
+                product: {
+                    ...state.product,
+                    comments: [...state.product.comments, ...payload.comments]
+                }
+            }
         case UPDATE_LIKES:
             return {
                 ...state,

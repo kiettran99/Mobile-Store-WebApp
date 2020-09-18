@@ -3,7 +3,7 @@ import {
     REQUEST_LOADING, COMPLETE_LOADING,
     ADD_COMMENT, REMOVE_COMMENT, UPDATE_LIKES,
     UPDATE_LIKES_COMMENT, ADD_REPLY_COMMENT, REMOVE_REPLY_COMMENT,
-    UPDATE_LIKES_REPLY
+    UPDATE_LIKES_REPLY, GET_MORE_COMMENTS
 } from './types';
 import urlAPI from '../utils/urlAPI';
 import axios from 'axios';
@@ -27,7 +27,34 @@ export const getProducts = () => async dispatch => {
     }
 };
 
-export const getProduct = (id) => async dispatch => {
+export const getMoreComments = (id, skip = 0, limit = 4) => async dispatch => {
+    try {
+        dispatch({
+            type: REQUEST_LOADING
+        });
+
+        const res = await axios.get(`${urlAPI}/api/products/${id}?skip=${skip}&limit=${limit}`);
+
+        dispatch({
+            type: GET_MORE_COMMENTS,
+            payload: res.data
+        });
+    }
+    catch (e) {
+        console.log(e);
+        dispatch({
+            type: PRODUCT_ERROR,
+            payload: { msg: e.response.data, status: e.response.statusText }
+        });
+    }
+    finally {
+        dispatch({
+            type: COMPLETE_LOADING
+        });
+    }
+};
+
+export const getProduct = (id, skip = 0, limit = 4) => async dispatch => {
     try {
 
         dispatch({
@@ -38,7 +65,7 @@ export const getProduct = (id) => async dispatch => {
             type: REQUEST_LOADING
         });
 
-        const res = await axios.get(`${urlAPI}/api/products/${id}`);
+        const res = await axios.get(`${urlAPI}/api/products/${id}?skip=${skip}&limit=${limit}`);
 
         dispatch({
             type: GET_PRODUCT,

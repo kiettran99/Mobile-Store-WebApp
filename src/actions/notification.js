@@ -7,9 +7,9 @@ import {
 import urlAPI from '../utils/urlAPI';
 import axios from 'axios';
 
-export const loadNotification = () => async dispatch => {
+export const loadNotification = (skip = 0, limit = 3) => async dispatch => {
     try {
-        const res = await axios.get(`${urlAPI}/api/notification`);
+        const res = await axios.get(`${urlAPI}/api/notification?skip=${skip}&limit=${limit}`);
 
         dispatch({
             type: NOTIFICATION_LOADED,
