@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadNotification, clearNotification, makeAsRead, makeAsReadAll } from '../../../actions/notification';
 import { Link } from 'react-router-dom';
 import dayjs from '../../../utils/relativeDate';
-import Spinnet from '../Spinnet';
+import useNotificationPusher from './useNotificationPusher';
 
 const NotificationBar = ({ notification: { notification, loading }, auth: { isAuthenticated },
     loadNotification, clearNotification, makeAsRead, makeAsReadAll }) => {
+
+    useNotificationPusher(isAuthenticated, loadNotification);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -47,10 +48,13 @@ const NotificationBar = ({ notification: { notification, loading }, auth: { isAu
                     <span className="button" onClick={() => onMarkAsReadAll()}>Mark as Read</span>
                 </div>
 
-                {loading ? <Spinnet /> :
+                {loading ?
+                    <h6 className="dropdown-item d-flex align-items-center text-muted">Please login in to following notification.</h6>
+                    :
                     <>
                         <div className="overflow-auto">
-                            {notification.messages && notification.messages.length > 0 && notification.messages.map(message => (
+                            {notification.messages && notification.messages.length >= 0 && notification.messages.length === 0 ?  <h6 className="dropdown-item d-flex align-items-center text-muted">Notification's Box is empty.</h6> :
+                            notification.messages.map(message => (
                                 <Link key={message._id} className="dropdown-item d-flex align-items-center"
                                     onClick={() => onMarkAsRead(message._id)}
                                     to={`/${message.topic}/${message.topicId}`}>

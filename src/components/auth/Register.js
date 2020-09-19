@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { register } from '../../actions/auth';
 import { setAlert } from '../../actions/alert';
 
-const Register = ({ isAuthenticated, register, setAlert }) => {
+const Register = ({ auth: { isAuthenticated }, register, setAlert }) => {
 
     const [formData, setFormData] = useState({
         username: '',
@@ -31,7 +31,7 @@ const Register = ({ isAuthenticated, register, setAlert }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if (password === pasword2) {
+        if (password === password2) {
             register({ username, password, name });
         }
         else {
@@ -74,7 +74,7 @@ const Register = ({ isAuthenticated, register, setAlert }) => {
                         </div>
 
                         <div className="form-group">
-                            <input type="text"
+                            <input type="password"
                                 className="form-control"
                                 placeholder="Password"
                                 name='password'
@@ -86,15 +86,15 @@ const Register = ({ isAuthenticated, register, setAlert }) => {
                         <div className="form-group">
                             <input type="password"
                                 className="form-control"
-                                placeholder="Password2"
+                                placeholder="Re-password"
                                 name='password2'
                                 value={password2}
                                 onChange={e => onChange(e)}
                                 required={true} />
                         </div>
 
-                        <button type="submit" className="btn btn-success btn-md btn-block">
-                            Login
+                        <button type="submit" className="btn btn-primary btn-md btn-block">
+                            Registry
                     </button>
 
                         <p className="my-1">
@@ -113,7 +113,7 @@ Register.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { register, setAlert })(Register);

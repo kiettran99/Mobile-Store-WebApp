@@ -97,7 +97,7 @@ export const register = ({ username, password, name }) => async dispatch => {
             type: REQUEST_LOADING
         });
 
-        const res = await axios.post(`${urlAPI}/api/users`, body, config);
+        const res = await axios.post(`${urlAPI}/api/users/register`, body, config);
 
         dispatch({
             type: REGISTER_SUCCESS,
@@ -107,7 +107,7 @@ export const register = ({ username, password, name }) => async dispatch => {
         dispatch(loadUser());
     }
     catch (e) {
-        console.log(e);
+        console.log(e.response);
 
         const errors = e.response.data.errors;
 
@@ -116,7 +116,7 @@ export const register = ({ username, password, name }) => async dispatch => {
         }
 
         dispatch({
-            type: REGISTER_FAIL
+            type: REGISTER_FAIL,
         });
     }
     finally {
