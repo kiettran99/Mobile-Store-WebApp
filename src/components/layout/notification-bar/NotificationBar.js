@@ -8,7 +8,7 @@ import useNotificationPusher from './useNotificationPusher';
 const NotificationBar = ({ notification: { notification, loading }, auth: { isAuthenticated },
     loadNotification, clearNotification, makeAsRead, makeAsReadAll }) => {
 
-    useNotificationPusher(isAuthenticated, loadNotification);
+    useNotificationPusher(isAuthenticated, notification, loadNotification);
 
     useEffect(() => {
         if (isAuthenticated) {

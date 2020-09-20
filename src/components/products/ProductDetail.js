@@ -10,7 +10,7 @@ import ProductDescription from './ProductDescription';
 const ProductDetail = ({ getProduct, getMoreComments, match, product: { product, loading } }) => {
     useEffect(() => {
         getProduct(match.params.id);
-    }, [getProduct]);
+    }, [getProduct, match.params.id]);
 
     return loading ? <Spinnet /> : (!product ? <NotFoundPage /> :
         <div className="container-flud card m-md-3 rounded shadow-sm">
